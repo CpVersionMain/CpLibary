@@ -12,35 +12,13 @@ Using this library, create a mysql database and even delete it!
 
 https://github.com/CpVersionMain/CpLibary
 
-💣 Number Merhods : 7
+💣 Number Merhods : 15
 
 ⚙ Methods :
 
-🔥 CPanel management :
+📚 Documentation :
 
-✅ ConnectToServer
-✅ CronJobs
-✅ DeleteCron
-✅ AccountFtp
-✅ DelAccountFtp
-✅ CreateDatabase
-✅ DeleteDatabase
-
-
-💣 Number Merhods : 8
-
-⚙ Methods :
-
-🔥 File manager management
-
-✅ CreateFolder
-✅ DeleteFolder
-✅ CreateFile
-✅ DeleteFile
-✅ rename
-✅ upload
-✅ InfoFile
-✅ ListContent
+@Documentation_CpLibary
 
 📣 @Cp_Libary
 📣 @Documentation_CpLibary
