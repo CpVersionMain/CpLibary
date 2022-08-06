@@ -313,4 +313,39 @@ $List .= ''.$Name."\n";
 }
 return $List;
 }
+public function CopyFile($data=[]){
+$domain = $data["domain"];
+$user_name = $data["user"];
+$pass = $data["pass"];
+$name1 = $data["localaddress"];
+$name2 = $data["Newaddress"];
+$connection = ftp_connect($domain);
+$login = ftp_login($connection,$user_name,$pass);
+if (ftp_put($connection,$name2,$name1,FTP_ASCII)) {
+return "true";
+}else{
+return "Error";
+}
+ftp_close($connection);
+}
+public function FilePut($data=[]){
+$domain = $data["domain"];
+$user_name = $data["user"];
+$pass = $data["pass"];
+$name = $data["address"];
+$datas = $data["data"];
+$connection = ftp_connect($domain);
+$login = ftp_login($connection,$user_name,$pass);
+$g = str_replace("/","\n",$name);
+$j = explode("\n",$g);
+$f = count($j)-1;
+file_put_contents($j[$f],$datas);
+if (ftp_put($connection,$name,$j[$f],FTP_ASCII)) {
+return "true";
+}else{
+return "Error";
+}
+unlink($j[$f]);
+ftp_close($connection);
+}
 }
