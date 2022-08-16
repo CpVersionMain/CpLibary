@@ -11,7 +11,7 @@ Using this library, create a mysql database and even delete it!
 
 https://github.com/CpVersionMain/CpLibary
 
-💣 Number Merhods : 17
+💣 Number Merhods : 20
 
 ⚙ Methods :
 
