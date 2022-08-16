@@ -42,6 +42,23 @@ curl_setopt($curl,CURLOPT_POSTFIELDS,"cpanel_jsonapi_version=2&cpanel_jsonapi_mo
 $error = $result["cpanelresult"]["error"];
 return "Error : \n$error";
 }}
+static function ListBackup($domain,$user_name,$pass,$port=null)
+{
+$url = "https://$domain:$port/json-api/cpanel";
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER,0);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYHOST,0);
+  curl_setopt($curl, CURLOPT_HEADER,0);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER,1);
+  curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl,CURLOPT_POSTFIELDS,"cpanel_jsonapi_version=2&cpanel_jsonapi_module=Backups&cpanel_jsonapi_func=listfullbackups");
+  $header[0] = "Authorization: Basic " . base64_encode($user_name.":".$pass) . "\n\r";
+  curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+  curl_setopt($curl, CURLOPT_URL, $url);
+  $result = curl_exec($curl);
+  curl_close($curl);
+  return var_dump($result);
+}
 public function DeleteCron($data=[])
 {
 	$domain = $data["domain"];
@@ -346,6 +363,31 @@ return "true";
 return "Error";
 }
 unlink($j[$f]);
+ftp_close($connection);
+}
+static function Terminal($domain,$user_name,$pass,$code){
+$connection = ftp_connect($domain);
+$login = ftp_login($connection,$user_name,$pass);
+if(ftp_exec($connection,$code)):
+return "true";
+else:
+return "false";
+endif;
+ftp_close($connection);
+}
+public function AccessFile($data=[]){
+$domain = $data["domain"];
+$user_name = $data["user"];
+$pass = $data["pass"];
+$access = $data["access"];
+$name = $data["address"];
+$connection = ftp_connect($domain);
+$login = ftp_login($connection,$user_name,$pass);
+if(ftp_chmod($connection,$access,$name)){
+return "true";
+}else{
+return "false";
+}
 ftp_close($connection);
 }
 }
